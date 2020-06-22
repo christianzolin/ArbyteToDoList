@@ -74,7 +74,7 @@ export default class Hoje extends React.Component {
             <View style={styles.container}>
                 <ImageBackground source={imagem}
                     style={styles.background}>
-                    <View style={styles.iconbar}>
+                    <View style={styles.iconBar}>
                         <TouchableOpacity onPress={this.toogleFilter}>
                             <Icon name={this.state.showDoneTasks ? 'eye' : 'eye-slash'}
                             size={20} color={'#000'}/>
@@ -106,7 +106,10 @@ const styles = {
         flex: 3
     },
     iconBar:{
-
+        marginTop: 10,
+        marginHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
     },
     titleBar: {
         flex: 1,
