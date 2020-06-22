@@ -1,12 +1,27 @@
-import React from 'react'
-import {View, Text } from 'react-native'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { View, Text, AsyncStorage } from 'react-native'
+import BotaoAdicionar from '../components/BotaoAdicionar';
+import EntradaDeTexto from '../components/EntradaDeTexto';
+import ListaDeTarefas from '../components/ListaDeTarefas';
+import { adicionarTarefa } from '../actions/tarefas'
 
-export default Amanha = () => {
+const Amanha = ({dispatch}) => {
+
+
     return (
         <View>
-            <Text>
-               Amanha
-            </Text>
+            <BotaoAdicionar />
+            <EntradaDeTexto />
+            <ListaDeTarefas />
         </View>
     )
 }
+
+const mapStateToProps = (store) => {
+    return {
+        tarefas: store.tarefas
+    };
+};
+
+export default connect(mapStateToProps)(Amanha);
