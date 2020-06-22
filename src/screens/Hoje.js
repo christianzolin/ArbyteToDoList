@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, ImageBackground, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, ImageBackground, FlatList, TouchableOpacity, Alert } from 'react-native'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import imagem from '../image/imagem.png'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+import ActionButton from 'react-native-action-button'
+import AddTarefa from './AddTarefa'
 import Tasks from '../components/Tasks'
 
 export default class Hoje extends React.Component {
@@ -37,7 +38,21 @@ export default class Hoje extends React.Component {
         ],
         visible: [],
         showDoneTasks: true,
+        showAddTarefa: false,
     }
+
+    AddTarefa = tarefa => {
+        const tarefas = [...this.state.tarefas]
+        tarefas.push({
+            id: Math.random(),
+            desc: tarefa.desc,
+            estimatedAt: tarefa.date,
+            doneAt: null
+        })
+        this.setState({ tarefas, showAddTarefa: false }, this.filterTasks)
+    }
+
+
 
     filterTasks = () => {
         let visibleTasks = null
@@ -62,7 +77,7 @@ export default class Hoje extends React.Component {
             }
             return tarefa
         })
-        this.setState({ tarefas })
+        this.setState({ tarefas }, this.filterTasks)
     }
 
     componentDidMount = () => {
@@ -72,12 +87,16 @@ export default class Hoje extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <AddTarefa
+                    isVisible={this.state.showAddTarefa}
+                    onSave={this.AddTarefa}
+                    onCancel={() => this.setState({ showAddTarefa: false })} />
                 <ImageBackground source={imagem}
                     style={styles.background}>
                     <View style={styles.iconBar}>
                         <TouchableOpacity onPress={this.toogleFilter}>
                             <Icon name={this.state.showDoneTasks ? 'eye' : 'eye-slash'}
-                            size={20} color={'#000'}/>
+                                size={20} color={'#000'} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.titleBar}>
@@ -92,6 +111,7 @@ export default class Hoje extends React.Component {
                         keyExtractor={item => `${item.id}`}
                         renderItem={({ item }) => <Tasks {...item} toogleTask={this.toogleTask} />} />
                 </View>
+                <ActionButton buttonColor={'#000'} onPress={() => { this.setState({ showAddTarefa: true }) }} />
             </View>
         )
     }
@@ -105,7 +125,7 @@ const styles = {
     background: {
         flex: 3
     },
-    iconBar:{
+    iconBar: {
         marginTop: 10,
         marginHorizontal: 20,
         flexDirection: 'row',
