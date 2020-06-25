@@ -6,7 +6,7 @@ import EntradaDeTexto from '../components/EntradaDeTexto';
 import ListaDeTarefas from '../components/ListaDeTarefas';
 import { adicionarTarefa } from '../actions/tarefas'
 
-const Amanha = ({dispatch}) => {
+const PaginaTarefasFazer = ({dispatch}) => {
 
 
     return (
@@ -20,8 +20,8 @@ const Amanha = ({dispatch}) => {
 
 const mapStateToProps = (store) => {
     return {
-        tarefas: store.tarefas
+        tarefas: store.adicionarTarefa.tarefas
     };
 };
 
-export default connect(mapStateToProps)(Amanha);
+export default connect(mapStateToProps)(PaginaTarefasFazer);

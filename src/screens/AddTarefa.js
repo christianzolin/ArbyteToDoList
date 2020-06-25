@@ -7,38 +7,25 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity,
     Alert,
-    DatePickerAndroid,
 
 } from 'react-native'
-import moment from 'moment'
 
-const initialState = { desc: '', date: new Date() }
+const initialState = { description: '' }
 
 export default class AddTask extends Component {
-    state = { ...initialState }
+    constructor(){
+        super()
+        this.state = { ...initialState }
+    }
 
     save = () => {
-        if (!this.state.desc.trim()) {
+        if (!this.state.description.trim()) {
             Alert.alert('Dados inválidos', 'Informe uma descrição para tarefa')
             return
         }
         const data = { ...this.state }
         this.props.onSave(data)
         this.setState({ ...initialState })
-    }
-
-    dataAndroid = () => {
-        DatePickerAndroid.open({
-            date: this.state.date
-        }).then(e => {
-            if (e.action !== DatePickerAndroid.dismissedAction) {
-                const momentDate = moment(this.state.date)
-                momentDate.date(e.day)
-                momentDate.month(e.month)
-                momentDate.year(e.year)
-                this.setState({ date: momentDate.toDate() })
-            }
-        })
     }
 
     render() {
@@ -53,13 +40,8 @@ export default class AddTask extends Component {
                     <Text style={styles.header}>Nova Tarefa</Text>
                     <TextInput placeholder="Descrição..."
                         style={styles.input}
-                        onChangeText={desc => this.setState({ desc })}
-                        value={this.state.desc} />
-                    <TouchableOpacity onPress={this.dataAndroid}>
-                        <Text style={styles.date}>
-                            {moment(this.state.date).format('ddd, D [de] MMMM [de] YYYY')}
-                        </Text>
-                    </TouchableOpacity>
+                        onChangeText={description => this.setState({ description })}
+                        value={this.state.description} />
                 </View>
                 <View style={styles.containerButton}>
                     <TouchableOpacity onPress={this.props.onCancel}>

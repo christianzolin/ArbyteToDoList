@@ -27,7 +27,7 @@ const styles = {
 
 const mapStateToProps = (store) => {
   return {
-    conteudoDaCaixaDeTexto: store.conteudoDaCaixaDeTexto,
+    conteudoDaCaixaDeTexto: store.adicionarTarefa.conteudoDaCaixaDeTexto,
   };
 };
 

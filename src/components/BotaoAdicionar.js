@@ -38,8 +38,8 @@ const styles = {
 
 const mapStateToProps = (store) => {
   return {
-    conteudoDaCaixaDeTexto: store.conteudoDaCaixaDeTexto,
-    tarefas: store.tarefas
+    conteudoDaCaixaDeTexto: store.adicionarTarefa.conteudoDaCaixaDeTexto,
+    tarefas: store.adicionarTarefa.tarefas
   };
 };
 

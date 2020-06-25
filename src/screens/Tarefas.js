@@ -1,11 +1,9 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { EasingNode } from 'react-native-reanimated'
-import Hoje from './Hoje'
-import Amanha from './Amanha'
+
+import PaginaTodasTarefas from './PaginaTodasTarefas'
+import PaginaTarefasFazer from './PaginaTarefasFazer'
 import Mes from './Mes'
 
 const Tab = createMaterialTopTabNavigator();
@@ -13,10 +11,10 @@ const Tab = createMaterialTopTabNavigator();
 
 function Tarefas() {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Hoje" component={Hoje} />
-            <Tab.Screen name="Amanhã" component={Amanha} />
-            <Tab.Screen name="Mês" component={Mes} />
+        <Tab.Navigator initialRouteName="Todas as Tarefas">
+            <Tab.Screen name="Todas as Tarefas" component={PaginaTodasTarefas} />
+            <Tab.Screen name="A fazer" component={PaginaTarefasFazer} />
+            {/* <Tab.Screen name="Mês" component={Mes} /> */}
         </Tab.Navigator>
     );
 }

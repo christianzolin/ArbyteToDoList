@@ -1,12 +1,10 @@
 import React from 'react'
 import { View, Text, TouchableNativeFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import moment from 'moment'
-import 'moment/locale/pt-br'
 
 export default Hoje = (props) => {
-    let check = null
-    if (props.doneAt !== null) {
+    let check = false
+    if (props.completed !== false) {
         check = (
             <View style={styles.done}>
                 <Icon name='check' size={20}
@@ -17,20 +15,17 @@ export default Hoje = (props) => {
         check = <View style={styles.pending} />
     }
 
-    const descStyle = props.doneAt !== null ?
+    const descStyle = props.completed !== false ?
         { textDecorationLine: 'line-through' } : {}
 
     return (
         <View style={styles.container}>
-            <TouchableNativeFeedback onPress={() => props.toogleTask(props.id)}>
+            <TouchableNativeFeedback onPress={() => props.tarefaCompletada(props.id)}>
                 <View style={styles.checkContainer}>{check}</View>
             </TouchableNativeFeedback>
             <View>
                 <Text style={[styles.description, descStyle]}>
-                    {props.desc}
-                </Text>
-                <Text style={styles.date}>
-                    {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM [de] YYYY')}
+                    {props.description}
                 </Text>
             </View>
         </View>

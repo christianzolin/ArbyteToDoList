@@ -24,7 +24,7 @@ const styles = {
 
 const mapStateToProps = (store) => {
   return {
-    tarefas: store.tarefas,
+    tarefas: store.adicionarTarefa.tarefas,
   };
 };
 
