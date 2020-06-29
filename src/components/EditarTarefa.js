@@ -12,8 +12,8 @@ import {
 
 const initialState = { description: '' }
 
-export default class AddTask extends Component {
-    constructor(){
+export default class EditarTarefa extends Component {
+    constructor() {
         super()
         this.state = { ...initialState }
     }
@@ -33,9 +33,11 @@ export default class AddTask extends Component {
             <Modal onRequestClose={this.props.onCancel}
                 visible={this.props.isVisible}
                 animationType={'slide'} transparent={true}>
+
                 <TouchableWithoutFeedback onPress={this.props.onCancel} >
                     <View style={styles.offset}></View>
                 </TouchableWithoutFeedback>
+
                 <View style={styles.container}>
                     <Text style={styles.header}>Nova Tarefa</Text>
                     <TextInput placeholder="Descrição..."
@@ -44,13 +46,10 @@ export default class AddTask extends Component {
                         value={this.state.description} />
                 </View>
                 <View style={styles.containerButton}>
-                    <TouchableOpacity onPress={this.props.onCancel}>
-                        <Text style={styles.textButton}>Cancelar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.save}>
-                        <Text style={styles.textButton}>Salvar </Text>
-                    </TouchableOpacity>
+                    <BotaoModal onPress={this.props.onCancel} title={'Cancelar'} />
+                    <BotaoModal onPress={this.save} title={'Salvar'} />
                 </View>
+
                 <TouchableWithoutFeedback onPress={this.props.onCancel}>
                     <View style={styles.offset}></View>
                 </TouchableWithoutFeedback>

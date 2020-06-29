@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './src/screens/Login'
-import Tarefas from './src/screens/Tarefas'
+import PaginaTarefas from './src/screens/PaginaTarefas'
 import Cadastro from './src/screens/Cadastro'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -19,10 +19,10 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar />
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Tarefas" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastro" component={Cadastro} />
-          <Stack.Screen name="Tarefas" component={Tarefas} />
+          <Stack.Screen name="Tarefas" component={PaginaTarefas} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

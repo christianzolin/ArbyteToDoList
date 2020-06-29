@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { View, Text, AsyncStorage, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import EntradaDeTextoLogin from '../components/EntradaDeTextoLogin'
 import Botao from '../components/Botao'
 
 import { actionLogin } from '../actions/login'
 import { connect } from 'react-redux'
-import LoginApi from '../components/Login'
+import LoginApi from '../components/Api/Login'
+import EntradaDeTexto from '../components/EntradaDeTextoLogin'
 
 class Login extends React.Component {
     constructor() {
@@ -18,19 +18,6 @@ class Login extends React.Component {
         }
     }
 
-    componentDidMount = async () => {
-        this.setState({ loading: true })
-        const data = await AsyncStorage.getItem('logado')
-        const usuario = JSON.parse(data)
-        console.log('usuario: ', usuario);
-        if (usuario) {
-            this.props.navigation.navigate("Tarefas")
-        }
-        setTimeout(() => {
-            this.setState({ loading: false })
-        }, 1000);
-    }
-
     onPressLogin = () => {
         LoginApi(this.state.login)
             .then(res => {
@@ -40,36 +27,31 @@ class Login extends React.Component {
                 // dispatch(actionLogin(usuario))
                 AsyncStorage.setItem('usuario', JSON.stringify(usuario))
                 AsyncStorage.setItem('logado', JSON.stringify(this.state.logado))
-                this.props.navigation.navigate('Tarefas')
+                this.props.navigation.push('Tarefas')
             })
-            .catch(e => console.log('erro', e))
+            .catch(e => console.log('erro', e.response.data))
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                {this.state.loading
-                    ? <ActivityIndicator size={"large"} color={'purple'} />
-                    : <View style={styles.container} >
-                        <Text style={styles.textHeader}>Lista de Tarefas</Text>
-                        <View style={styles.login}>
-                            <Text style={styles.textLogin}>Login</Text>
-                        </View>
-                        <View style={styles.caixaDeTexto}>
-                            <TextInput
-                                style={styles.entradaDeTexto}
-                                placeholder=' Digite seu e-mail'
-                                placeholderTextColor='black'
-                                value={this.state.login}
-                                onChangeText={(login) => this.setState({ login })}
-                            />
-                        </View>
-                        <View style={styles.botoes}>
-                            <Botao onPress={() => { this.onPressLogin() }} title="Login" />
-                            <Botao onPress={() => { this.props.navigation.navigate('Cadastro') }} title="Cadastrar" />
-                        </View>
-                    </View>
-                }
+            <View style={styles.container} >
+                <Text style={styles.textHeader}>Lista de Tarefas</Text>
+                <View style={styles.login}>
+                    <Text style={styles.textLogin}>Login</Text>
+                </View>
+                <View style={styles.caixaDeTexto}>
+                    <TextInput
+                        style={styles.entradaDeTexto}
+                        placeholder=' Digite seu e-mail'
+                        placeholderTextColor='black'
+                        value={this.state.login}
+                        onChangeText={(login) => this.setState({ login })}
+                    />
+                </View>
+                <View style={styles.botoes}>
+                    <Botao onPress={() => { this.onPressLogin() }} title="Login" />
+                    <Botao onPress={() => { this.props.navigation.navigate('Cadastro') }} title="Cadastrar" />
+                </View>
             </View>
         )
     }

@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
-import EntradaDeTextoLogin from '../components/EntradaDeTextoLogin'
+import React from 'react'
+import { View, Text } from 'react-native'
+import EntradaDeTexto from '../components/EntradaDeTexto'
 import Botao from '../components/Botao'
-import cadastrar from '../components/Cadastrar'
+import cadastrar from '../components/Api/Cadastrar'
 
 export default Cadastro = ({ navigation }) => {
     const [email, setEmail] = React.useState('')
@@ -22,8 +21,8 @@ export default Cadastro = ({ navigation }) => {
                 <Text style={styles.textLogin}>Cadastro</Text>
             </View>
             <View style={styles.caixaDeTexto}>
-                <EntradaDeTextoLogin login={nome} setLogin={setNome} placeholder={'  Digite seu nome'}/>
-                <EntradaDeTextoLogin login={email} setLogin={setEmail} placeholder={'  Digite seu e-mail'}/>
+                <EntradaDeTexto state={nome} setState={setNome} placeholder={'  Digite seu nome'}/>
+                <EntradaDeTexto state={email} setState={setEmail} placeholder={'  Digite seu e-mail'}/>
             </View>
             <View style={styles.botoes}>
                 <Botao onPress={() => { navigation.navigate('Login')}} title="Voltar" />

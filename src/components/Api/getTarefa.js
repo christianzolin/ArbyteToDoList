@@ -9,6 +9,7 @@ const getTarefa = (token) => {
     .then(resposta => {
        return resposta.data
     })
+    .catch(e => console.log('erro ao buscar', e.response.data))
 }
 
 export default getTarefa

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableNativeFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default Hoje = (props) => {
-    let check = false
+    const [checks, setChecks] = useState(false)
+    const [editar, setEditar] = useState(false)
+    const [excluir, setExcluir] = useState(false)
+    var check = false
     if (props.completed !== false) {
         check = (
             <View style={styles.done}>
@@ -18,28 +21,59 @@ export default Hoje = (props) => {
     const descStyle = props.completed !== false ?
         { textDecorationLine: 'line-through' } : {}
 
+
+
     return (
         <View style={styles.container}>
-            <TouchableNativeFeedback onPress={() => props.tarefaCompletada(props.id)}>
-                <View style={styles.checkContainer}>{check}</View>
+            <TouchableNativeFeedback onPress={() => {
+               
+                props.tarefaCompletada(props.id)
+            }}>
+                <View style={styles.checkContainer}>{check}
+                </View>
             </TouchableNativeFeedback>
-            <View>
+            <View style={{ flexDirection: 'row', flex: 3 }}>
                 <Text style={[styles.description, descStyle]}>
                     {props.description}
                 </Text>
             </View>
-        </View>
+            <View style={{ flex: 1, flexDirection: "row", margin: 2 }}>
+                <TouchableNativeFeedback onPress={() => {
+                    props.showEditarTarefa()
+                    props.editarTarefa(props.id)
+                }}>
+                    <View style={styles.checkContainer}>{<Icon name='edit' size={20}
+                        color={'black'} />}
+                    </View>
+                </TouchableNativeFeedback>
+                <View style={{ flex: 1, flexDirection: "row", margin: 2 }}>
+                    <TouchableNativeFeedback onPress={() => {
+                        setExcluir(true)
+                        props.excluirTarefa(props.id)
+                    }}>
+                        <View style={styles.checkContainer}>
+                            {/* {<Icon name='delte' size={20}
+                            color={'black'} />} */}
+                            <Text style={{color: 'red', fontSize: 22}}>X</Text>
+                            </View>
+                    </TouchableNativeFeedback>
+                </View>
+            </View>
+
+        </View >
     )
 }
 
 const styles = {
     container: {
+        flex: 1,
         paddingVertical: 10,
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: 'AAA'
     },
     checkContainer: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         width: '20%',

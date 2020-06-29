@@ -1,34 +1,37 @@
 import React from 'react';
-import {TextInput} from 'react-native';
-import {connect} from 'react-redux';
+import { TextInput } from 'react-native';
 
-import {atualizarConteudoCaixaDeTexto} from '../actions/tarefas';
+const EntradaDeTexto = ({ state, setState, placeholder }) => {
+    return (
+        <TextInput
+            style={styles.entradaDeTexto}
+            placeholder={placeholder}
+            placeholderTextColor='black'
+            value={state}
+            onChangeText={(novoTexto) =>
+                setState(novoTexto)
 
-const EntradaDeTexto = ({conteudoDaCaixaDeTexto, dispatch}) => {
-  return (
-    <TextInput
-      style={styles.entradaDeTexto}
-      value={conteudoDaCaixaDeTexto}
-      onChangeText={(novoTexto) =>
-        dispatch(atualizarConteudoCaixaDeTexto(novoTexto))
-      }
-    />
-  );
+            }
+        />
+    );
 };
 
 const styles = {
-  entradaDeTexto: {
-    height: 100,
-    borderWidth: 2,
-    borderColor: '#000',
-    marginVertical: 10,
-  },
+    entradaDeTexto: {
+        margin: 50,
+        borderWidth: 2,
+        borderColor: '#000',
+        marginVertical: 10,
+        width: 250,
+        height: 50,
+        borderWidth: 2,
+        borderColor: '#ffde21',
+        borderRadius: 12,
+        marginVertical: 8,
+        marginHorizontal: 2,
+        backgroundColor: 'gold',
+        paddingLeft: 7
+    },
 };
 
-const mapStateToProps = (store) => {
-  return {
-    conteudoDaCaixaDeTexto: store.adicionarTarefa.conteudoDaCaixaDeTexto,
-  };
-};
-
-export default connect(mapStateToProps)(EntradaDeTexto);
+export default EntradaDeTexto
