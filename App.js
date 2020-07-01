@@ -8,9 +8,9 @@ import PaginaTarefas from './src/screens/PaginaTarefas'
 import Cadastro from './src/screens/Cadastro'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import  combineReducers  from './src/reducers/reducerIndex';
+import  tarefa  from './src/reducers/tarefa';
 
-const store = createStore(combineReducers);
+const store = createStore(tarefa);
 
 const Stack = createStackNavigator();
 

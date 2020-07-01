@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
-import { View, Text, AsyncStorage, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { View, Text, AsyncStorage, Alert, Button} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Botao from '../components/Botao'
-
-import { actionLogin } from '../actions/login'
 import { connect } from 'react-redux'
 import LoginApi from '../components/Api/Login'
-import EntradaDeTexto from '../components/EntradaDeTextoLogin'
+import validacaoEmail from '../components/validacaoEmail'
+
 
 class Login extends React.Component {
     constructor() {
@@ -19,17 +18,21 @@ class Login extends React.Component {
     }
 
     onPressLogin = () => {
-        LoginApi(this.state.login)
-            .then(res => {
-                this.setState({ logado: true })
-                const usuario = res.data
-                console.log('usuario login: ', usuario);
-                // dispatch(actionLogin(usuario))
-                AsyncStorage.setItem('usuario', JSON.stringify(usuario))
-                AsyncStorage.setItem('logado', JSON.stringify(this.state.logado))
-                this.props.navigation.push('Tarefas')
-            })
-            .catch(e => console.log('erro', e.response.data))
+        if(validacaoEmail(this.state.login)){
+            LoginApi(this.state.login)
+                .then(res => {
+                    this.setState({ logado: true })
+                    const usuario = res.data
+                    console.log('usuario login: ', usuario);
+                    // dispatch(actionLogin(usuario))
+                    AsyncStorage.setItem('usuario', JSON.stringify(usuario))
+                    AsyncStorage.setItem('logado', JSON.stringify(this.state.logado))
+                    this.props.navigation.push('Tarefas')
+                })
+                .catch(e => {
+                    Alert.alert('dados invalidos')
+                    console.log('erro', e.response.data)})
+        }
     }
 
     render() {

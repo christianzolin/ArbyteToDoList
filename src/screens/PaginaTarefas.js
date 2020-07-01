@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ImageBackground, FlatList, AsyncStorage, ActivityIndicator } from 'react-native'
+import { View, Text, ImageBackground, FlatList, AsyncStorage, ActivityIndicator, Button } from 'react-native'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import imagem from '../image/imagem.png'
@@ -76,7 +76,7 @@ class PaginaTarefas extends React.Component {
         this.setState({ editarId: id })
     }
 
-    editarTarefa = (tarefaEditada) => {
+    editarTarefa = async(tarefaEditada) => {
         const tarefas = this.state.tarefas.map(tarefa => {
             if (tarefa.id === this.state.editarId) {
                 putTarefa(tarefa.id, tarefa.completed, this.state.usuario.token, tarefaEditada.description)
@@ -190,7 +190,7 @@ const styles = {
 
 const mapStateToProps = (store) => {
     return {
-        usuario: store.usuario.usuario
+        tarefasRedux: store.tarefa
     };
 };
 

@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { View, Text, TouchableNativeFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export default Hoje = (props) => {
+const Task = (props) => {
+    
     const [checks, setChecks] = useState(false)
     const [editar, setEditar] = useState(false)
     const [excluir, setExcluir] = useState(false)
@@ -63,6 +64,8 @@ export default Hoje = (props) => {
         </View >
     )
 }
+
+export default Task
 
 const styles = {
     container: {

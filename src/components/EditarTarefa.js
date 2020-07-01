@@ -9,6 +9,7 @@ import {
     Alert,
 
 } from 'react-native'
+import BotaoModal from '../components/BotaoModal'
 
 const initialState = { description: '' }
 
